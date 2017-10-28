@@ -41,7 +41,12 @@ class GeoCodeClient {
             val location = coords.getJSONObject("location");
             val x: String = location.get("x").toString();
             val y: String = location.get("y").toString();
-            candidates.add(Coordinate(x.toFloat(), y.toFloat()));
+
+            val score = location.get("score").toString();
+            if( score.toFloat() > 75.0 ){
+                candidates.add(Coordinate(x.toFloat(), y.toFloat()));
+            }
+
         }
 
         return candidates;
