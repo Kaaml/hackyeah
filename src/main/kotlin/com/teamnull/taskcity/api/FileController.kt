@@ -1,9 +1,7 @@
 package com.teamnull.taskcity.api
 
-import com.teamnull.taskcity.api.CSVController
 import com.teamnull.taskcity.geocodeclient.GeoCodeClient
 import com.teamnull.taskcity.model.HeaderModel
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -27,12 +25,10 @@ class FileController {
     }
 
     @PostMapping("/csv")
-    fun downloadResult( @RequestParam("filename") fileName:String,
-                        @RequestParam("ulica") ulica: String,
-                        @RequestParam("miasto") miasto:String,
-                        @RequestParam("dupa") dupa: String) {
-
-        System.out.println( fileName + ulica + miasto + dupa )
+    fun downloadResult(@RequestParam("filename") fileName:String,
+                       @RequestParam("street") street: String,
+                       @RequestParam("city") city:String,
+                       @RequestParam("houseNumber") houseNumber: String) {
 
         val data = CSVController(fileName, "wyjscie.csv")
         val geo = GeoCodeClient()
@@ -40,7 +36,7 @@ class FileController {
         data.LoadHeaders()
 
 
-        val addressHeaders: Map<String, String> = hashMapOf("city" to "miejsce","street" to "UL","number" to "NR_BUD" )
+        val addressHeaders: Map<String, String> = hashMapOf("city" to city,"street" to street,"number" to houseNumber)
         data.LoadAddress(addressHeaders)
 
         val list = data.GetAddress()

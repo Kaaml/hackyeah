@@ -9,29 +9,29 @@
 
 <body>
 
-<h1>Product list</h1>
+<h1>columnNameuct list</h1>
 
 
     <form action="/csv" method="post" >
 
-        <select name="ulica" size="1">
-            <option  th:each="prod : ${prods}" th:text="${prod}"><Oni></Oni>ons</option>
+        <select name="street" size="1">
+            <option  th:each="columnName : ${columnNames}" th:text="${columnName}"><Oni></Oni>ons</option>
         </select>
 
-        <select name="miasto" size="1">
-            <option  th:each="prod : ${prods}" th:text="${prod}">Onions</option>
+        <select name="city" size="1">
+            <option  th:each="columnName : ${columnNames}" th:text="${columnName}">Onions</option>
         </select>
 
-        <select name="dupa" size="1">
-            <option  th:each="prod : ${prods}" th:text="${prod}">Onions</option>
+        <select name="nrDomu" size="1">
+            <option  th:each="columnName : ${columnNames}" th:text="${columnName}">Onions</option>
         </select>
 
         <input class="form-control"
                type="text"
-               th:value="${pupa}" id="clientName" name="filename"   style="display: none" />
+               th:value="${fileName}" id="clientName" name="filename"   style="display: none" />
 
 
-        <input type="submit" value="Upload Image" name="submit"/>
+        <input type="submit" value="Upload File" name="submit"/>
     </form>
 </body>
 
