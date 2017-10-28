@@ -28,13 +28,12 @@ class CsvProcessor(fileInput: String) {
                     executorService.execute {
                         val coordinates = geoCodeClient.getCordsFromAddress(address.GetAddress())
                         if (!coordinates.isEmpty()) {
-                            address.x = coordinates[1].x
-                            address.y = coordinates[1].y
-                        } else {
-                            unprocessedAddressData.add(address);
                             val tmp = LatToxy.convert(coordinates[0].x.toDouble(), coordinates[0].y.toDouble())
                             address.x = tmp.x.toFloat()
                             address.y = tmp.y.toFloat()
+                        } else {
+                            unprocessedAddressData.add(address);
+
                         }
                     }
                 }
