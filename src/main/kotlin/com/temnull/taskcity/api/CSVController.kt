@@ -47,8 +47,8 @@ class CSVController (val fileNameInput:String,val flieNameOuput:String){
                     val columns = it.split(';')
 
                     val indexCity = headerIndexes["city"]
-                    val indexStreet = headerIndexes["city"]
-                    val indexNumber = headerIndexes["city"]
+                    val indexStreet = headerIndexes["street"]
+                    val indexNumber = headerIndexes["number"]
 
                     result.add (AddressData(columns[indexCity!!],columns[indexStreet!!],columns[indexNumber!!],it,-1f,-1f))
                 }else{
