@@ -1,4 +1,4 @@
 package com.teamnull.taskcity.util
 
-class Point(x: Double, y:Double) {
+class Point(val x: Double, val y:Double) {
 }

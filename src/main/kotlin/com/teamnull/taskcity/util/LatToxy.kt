@@ -1,10 +1,9 @@
 package com.teamnull.taskcity.util
 
 object LatToxy {
-    fun convert( lat: Double, lon: Double ): Point  {
+    fun convert( lon: Double, lat: Double ): Point  {
         val ok = 0.9996
         val fe = 500000.0
-        val deg2rad = 1 //todo: poprawic
         val a = 6378137.0;
         val f = 1.0 / 298.257223563
         if( lon < 13.5 ||  lon > 25.5 ){
@@ -18,15 +17,15 @@ object LatToxy {
         var strf = 0.0
         if( lon >= 19.5 && lon < 22.5 ){
         //strefa 7
-            olam = 21.0 * deg2rad
+            olam = Math.toRadians(21.0)
             strf = 7000000.0
         }else {
             System.out.println("nie krakowskie wsp")
             return Point(-1.0, -1.0);
             //throw "no cracow coordinates!"
         }
-        val latRad = lat * deg2rad
-        val lonRad = lon * deg2rad
+        val latRad = Math.toRadians(lat)
+        val lonRad = Math.toRadians(lon)
 
         val recf = 1.0 / f
         val b = a * (recf - 1.0) / recf
@@ -59,20 +58,20 @@ object LatToxy {
         return Point(easting, northing)
     }
 
-    fun CalculateESquared(a: Double, b: Double): Double {
+    private fun CalculateESquared(a: Double, b: Double): Double {
         return (a * a - b * b) / (a * a)
     }
 
-    fun CalculateE2Squared(a: Double, b: Double): Double {
+    private fun CalculateE2Squared(a: Double, b: Double): Double {
         return (a * a - b * b) / (b * b)
     }
 
-    fun sphsn(a: Double, es: Double, sphi: Double): Double {
+    private fun sphsn(a: Double, es: Double, sphi: Double): Double {
         val sinSphi = Math.sin(sphi)
         return a / Math.sqrt(1.0 - es * (sinSphi * sinSphi))
     }
 
-    fun sphtmd(ap: Double, bp: Double, cp: Double, dp: Double, ep: Double, sphi: Double): Double {
+    private fun sphtmd(ap: Double, bp: Double, cp: Double, dp: Double, ep: Double, sphi: Double): Double {
         return ap * sphi - bp * Math.sin(2.0 * sphi) + cp * Math.sin(4.0 * sphi) - dp * Math.sin(6.0 * sphi) + ep * Math.sin(8.0 * sphi)
     }
 }

@@ -3,6 +3,7 @@ package com.teamnull.taskcity.processor
 import com.teamnull.taskcity.api.CSVController
 import com.teamnull.taskcity.csvclient.AddressData
 import com.teamnull.taskcity.geocodeclient.GeoCodeClient
+import com.teamnull.taskcity.util.LatToxy
 import java.util.concurrent.Executors
 
 class CsvProcessor(fileInput: String, fileOutput: String) {
@@ -21,8 +22,9 @@ class CsvProcessor(fileInput: String, fileOutput: String) {
                     executorService.execute {
                         val coordinates = geoCodeClient.getCordsFromAddress(address.GetAddress())
                         if (!coordinates.isEmpty()) {
-                            address.x = coordinates[1].x
-                            address.y = coordinates[1].y
+                            val tmp = LatToxy.convert(coordinates[0].x.toDouble(), coordinates[0].y.toDouble())
+                            address.x = tmp.x.toFloat()
+                            address.y = tmp.y.toFloat()
                         }
                     }
                 }
