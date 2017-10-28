@@ -1,5 +1,3 @@
-package com.ceeq
-
 import org.jetbrains.ktor.application.call
 import org.jetbrains.ktor.host.embeddedServer
 import org.jetbrains.ktor.http.ContentType
