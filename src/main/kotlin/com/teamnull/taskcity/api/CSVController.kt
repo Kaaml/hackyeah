@@ -5,34 +5,34 @@ import java.io.File
 import com.teamnull.taskcity.csvclient.AddressData
 
 
-class CSVController (val fileNameInput:String,val flieNameOuput:String){
+class CSVController(val fileNameInput: String) {
 
     private var addressData: List<AddressData>? = null
-    private var header:String? = null
+    private var header: String? = null
 
     fun GetAddress(): List<AddressData>? {
         return addressData
     }
 
-    fun LoadHeaders() : List<String> {
+    fun LoadHeaders(): List<String> {
         val headersLine = File(fileNameInput).readLines().first()
         return headersLine.split(';')
     }
 
-    private fun GetAddressIndexes(addressHeaders: Map<String, String>  ):Map<String, Int>  {
+    private fun GetAddressIndexes(addressHeaders: Map<String, String>): Map<String, Int> {
         val headers = LoadHeaders()
 
-        val result: MutableMap<String, Int> =HashMap()
-        result.put("city",headers.indexOf(addressHeaders["city"]) )
-        result.put("street",headers.indexOf(addressHeaders["street"] ))
-        result.put("number",headers.indexOf(addressHeaders["number"] ))
+        val result: MutableMap<String, Int> = HashMap()
+        result.put("city", headers.indexOf(addressHeaders["city"]))
+        result.put("street", headers.indexOf(addressHeaders["street"]))
+        result.put("number", headers.indexOf(addressHeaders["number"]))
 
         return result
     }
 
-    fun LoadAddress( addressHeaders: Map<String, String> ){
-        val result : MutableList<AddressData> = ArrayList()
-        if(!addressHeaders.isEmpty()){
+    fun LoadAddress(addressHeaders: Map<String, String>) {
+        val result: MutableList<AddressData> = ArrayList()
+        if (!addressHeaders.isEmpty()) {
             val headerIndexes = GetAddressIndexes(addressHeaders)
 
             val lineStream = File(fileNameInput).readLines()
@@ -42,30 +42,41 @@ class CSVController (val fileNameInput:String,val flieNameOuput:String){
 
             lineStream.forEach(action = {
 
-                if (!isFirstLine){
+                if (!isFirstLine) {
                     val columns = it.split(';')
 
                     val indexCity = headerIndexes["city"]
                     val indexStreet = headerIndexes["street"]
                     val indexNumber = headerIndexes["number"]
 
-                    result.add (AddressData(columns[indexCity!!], columns[indexStreet!!], columns[indexNumber!!], it, -1f, -1f))
-                }else{
-                    isFirstLine=false
+                    result.add(AddressData(columns[indexCity!!], columns[indexStreet!!], columns[indexNumber!!], it, -1f, -1f))
+                } else {
+                    isFirstLine = false
                 }
             })
         }
-        addressData =result
+        addressData = result
     }
 
-    fun SaveAddress() : String{
-        File(flieNameOuput).printWriter().use { out ->
+    fun SaveAddress(): String {
+        val filename = "processed" + System.currentTimeMillis() + ".csv";
+        File(filename).printWriter().use { out ->
             out.println("${header};x_pos;y_pos")
             addressData!!.forEach {
                 out.println("${it.rowData};${it.x};${it.y}")
             }
         }
-        return flieNameOuput
+        return filename
+    }
+
+    fun saveUnprocessedAddresses(addresses: List<AddressData>): String {
+        val filename = "unprocessed" + System.currentTimeMillis() + ".csv"
+        File(filename).printWriter().use { out ->
+            addresses.forEach {
+                out.println(it.rowData)
+            }
+        }
+        return filename
     }
 
 }

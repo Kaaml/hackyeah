@@ -23,8 +23,9 @@ class FileController {
 
         val startTime = System.currentTimeMillis();
         val addressHeaders: Map<String, String> = hashMapOf("city" to city,"street" to street,"number" to houseNumber)
-        val csvProcessor = CsvProcessor(fileName, "wyjscie.csv");
+        val csvProcessor = CsvProcessor(fileName);
         val outputFileName = csvProcessor.getOutputFile(addressHeaders);
+        val unprocessedFileName = csvProcessor.getUnprocessedAdressesFilename();
         val endTime : Long =System.currentTimeMillis()
         LOGGER.info("Processing complete !. Processing time: ${(endTime-startTime)/1000}")
         val documentBody = File(outputFileName).readBytes()
