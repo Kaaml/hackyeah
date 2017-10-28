@@ -31,7 +31,7 @@ class CSVController (val fileNameInput:String,val flieNameOuput:String){
     }
 
     fun LoadAddress( addressHeaders: Map<String, String> ){
-        val result : MutableList<AddressData> = ArrayList<AddressData>()
+        val result : MutableList<AddressData> = ArrayList()
         if(!addressHeaders.isEmpty()){
             val headerIndexes = GetAddressIndexes(addressHeaders)
 
@@ -58,14 +58,14 @@ class CSVController (val fileNameInput:String,val flieNameOuput:String){
         addressData =result
     }
 
-    fun SaveAddress(){
-
+    fun SaveAddress() : String{
         File(flieNameOuput).printWriter().use { out ->
             out.println("${header};x_pos;y_pos")
             addressData!!.forEach {
                 out.println("${it.rowData};${it.x};${it.y}")
             }
         }
+        return flieNameOuput
     }
 
 }
