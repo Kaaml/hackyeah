@@ -1,5 +1,8 @@
+package com.temnull.taskcity.geocodeclient
+
 import khttp.get
 import org.json.JSONArray
+import java.net.URLEncoder
 import java.util.ArrayList
 
 class GeoCodeClient {
@@ -10,11 +13,10 @@ class GeoCodeClient {
 
     private fun callGeoCode(addressLine: String): List<Coordinate> {
         val jsonArray = get("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates" +
-                "?SingleLine=" + addressLine +
+                "?SingleLine=" + URLEncoder.encode(addressLine,"UTF-8") +
                 "&category=&outFields=*" +
                 "&forStorage=false" +
                 "&f=pjson").jsonObject.getJSONArray("candidates")
-
         return parseResponse(jsonArray)
     }
 
