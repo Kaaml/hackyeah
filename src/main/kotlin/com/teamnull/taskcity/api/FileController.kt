@@ -26,7 +26,7 @@ class FileController {
         val csvProcessor = CsvProcessor(fileName, "wyjscie.csv");
         val outputFileName = csvProcessor.getOutputFile(addressHeaders);
         val endTime : Long =System.currentTimeMillis()
-        println("Finished - time: ${endTime-startTime}")
+        LOGGER.info("Processing complete !. Processing time: ${(endTime-startTime)/1000}")
         val documentBody = File(outputFileName).readBytes()
         val header = HttpHeaders()
         header.contentType = MediaType.APPLICATION_PDF
