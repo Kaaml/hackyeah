@@ -9,7 +9,7 @@
 
 <body>
 
-<h1>columnNameuct list</h1>
+<h1>Kolumny</h1>
 
 
     <form action="/csv" method="post" >
@@ -22,7 +22,7 @@
             <option  th:each="columnName : ${columnNames}" th:text="${columnName}">Onions</option>
         </select>
 
-        <select name="nrDomu" size="1">
+        <select name="houseNumber" size="1">
             <option  th:each="columnName : ${columnNames}" th:text="${columnName}">Onions</option>
         </select>
 

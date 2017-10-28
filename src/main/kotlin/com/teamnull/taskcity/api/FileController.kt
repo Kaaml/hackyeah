@@ -2,6 +2,7 @@ package com.teamnull.taskcity.api
 
 import com.teamnull.taskcity.geocodeclient.GeoCodeClient
 import com.teamnull.taskcity.model.HeaderModel
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -13,6 +14,7 @@ import java.util.concurrent.Executors
 
 @RestController
 class FileController {
+    private val LOGGER = LoggerFactory.getLogger(FileController::class.java);
 
     @PostMapping("/file")
     fun uploadFile(@RequestParam("file") file: MultipartFile ): HeaderModel {
@@ -41,11 +43,22 @@ class FileController {
 
         val list = data.GetAddress()
         val threadsNumber = 10
-        val threadDataSize = list!!.size/threadsNumber
+        var threadDataSize = list!!.size/threadsNumber
 
         var startTime : Long =System.currentTimeMillis()
 
+        if(threadDataSize<= 0) {
+            LOGGER.warn("List of record suprisingly small");
+            threadDataSize = list.size;
+        }
+
+        LOGGER.info("Processing started. Chunk size: " + threadDataSize);
+
         val executor = Executors.newFixedThreadPool(threadsNumber)
+
+
+
+
         for (i in 0..threadsNumber-1) {
             val worker = Runnable {
                 val startData = i*threadDataSize

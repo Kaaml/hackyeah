@@ -1,5 +1,6 @@
 package com.teamnull.taskcity.api
 
+import com.teamnull.taskcity.util.CsvUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,13 +15,10 @@ class CsvUpload {
     fun uploadFile(@RequestParam("file") file: MultipartFile, model: Model): String {
         val fnam = "tmpFile"+System.currentTimeMillis()
         Files.write(File(fnam).toPath(), file.bytes )
-        val data = CSVController(fnam, fnam+".out")
-        val retHead = data.LoadHeaders()
-
+        val retHead = CsvUtils.loadHeaders(fnam);
 
         model.addAttribute("columnNames", retHead)
         model.addAttribute("fileName", fnam)
-
 
         return "form"
     }

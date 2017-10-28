@@ -3,7 +3,6 @@ package com.teamnull.taskcity.api
 
 import java.io.File
 import com.teamnull.taskcity.csvclient.AddressData
-//import org.jetbrains.ktor.cio.readChannel
 
 
 class CSVController (val fileNameInput:String,val flieNameOuput:String){
