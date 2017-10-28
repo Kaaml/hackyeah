@@ -19,7 +19,7 @@ class GeoCodeClient {
     }
 
     private fun parseResponse(jsonArray: JSONArray): MutableList<Coordinate> {
-        val candidates: MutableList<Coordinate> = ArrayList();
+        val candidates: MutableList<Coordinate> = ArrayList()
 
         for (i in 0 until jsonArray.length()) {
             val coords = jsonArray.getJSONObject(i);
