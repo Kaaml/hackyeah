@@ -1,4 +1,4 @@
-package com.temnull.taskcity.geocodeclient
+package com.teamnull.taskcity.geocodeclient
 
 import khttp.get
 import org.apache.coyote.Response

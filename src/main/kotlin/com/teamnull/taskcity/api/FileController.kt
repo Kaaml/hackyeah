@@ -1,26 +1,40 @@
 package com.teamnull.taskcity.api
 
-import com.temnull.taskcity.api.CSVController
-import com.temnull.taskcity.geocodeclient.GeoCodeClient
-import org.springframework.web.bind.annotation.GetMapping
+import com.teamnull.taskcity.api.CSVController
+import com.teamnull.taskcity.geocodeclient.GeoCodeClient
+import com.teamnull.taskcity.model.HeaderModel
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
-import java.time.LocalDateTime
+import java.io.File
+import java.nio.file.Files
 import java.util.concurrent.Executors
+
 
 @RestController
 class FileController {
 
     @PostMapping("/file")
-    fun uploadFile(@RequestParam("file") file: MultipartFile): Int {
-        var bytes = file.bytes
-        return bytes.size
+    fun uploadFile(@RequestParam("file") file: MultipartFile ): HeaderModel {
+        val fnam = "./dupa"+System.currentTimeMillis()
+        Files.write(File(fnam).toPath(), file.bytes )
+        val data = CSVController(fnam, fnam + ".out")
+        val retHead = HeaderModel(data.LoadHeaders(), fnam)
+
+        return retHead
     }
-    @GetMapping("/csv")
-    fun downloadResult() {
-        val data = CSVController("dane wejściowe.csv","wyjscie.csv")
+
+    @PostMapping("/csv")
+    fun downloadResult( @RequestParam("filename") fileName:String,
+                        @RequestParam("ulica") ulica: String,
+                        @RequestParam("miasto") miasto:String,
+                        @RequestParam("dupa") dupa: String) {
+
+        System.out.println( fileName + ulica + miasto + dupa )
+
+        val data = CSVController(fileName, "wyjscie.csv")
         val geo = GeoCodeClient()
 
         data.LoadHeaders()

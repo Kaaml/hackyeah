@@ -1,4 +1,4 @@
-package com.temnull.taskcity.geocodeclient
+package com.teamnull.taskcity.geocodeclient
 
 class Coordinate(val x : Float, val y: Float) {
     override fun toString(): String {

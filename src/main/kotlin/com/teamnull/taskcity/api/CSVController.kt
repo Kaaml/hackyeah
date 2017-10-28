@@ -1,8 +1,8 @@
-package com.temnull.taskcity.api
+package com.teamnull.taskcity.api
 
 
 import java.io.File
-import com.temnull.taskcity.csvclient.AddressData
+import com.teamnull.taskcity.csvclient.AddressData
 //import org.jetbrains.ktor.cio.readChannel
 
 
@@ -50,7 +50,7 @@ class CSVController (val fileNameInput:String,val flieNameOuput:String){
                     val indexStreet = headerIndexes["street"]
                     val indexNumber = headerIndexes["number"]
 
-                    result.add (AddressData(columns[indexCity!!],columns[indexStreet!!],columns[indexNumber!!],it,-1f,-1f))
+                    result.add (AddressData(columns[indexCity!!], columns[indexStreet!!], columns[indexNumber!!], it, -1f, -1f))
                 }else{
                     isFirstLine=false
                 }
