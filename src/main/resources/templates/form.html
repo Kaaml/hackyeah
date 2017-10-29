@@ -8,22 +8,16 @@
 </head>
 
 <body>
-
-<h1>Kolumny</h1>
-
-
     <form action="/csv" method="post" >
 
+        <h3>Ulica</h3>
         <select name="street" size="1">
-            <option  th:each="columnName : ${columnNames}" th:text="${columnName}"><Oni></Oni>ons</option>
+            <option  th:each="columnName : ${columnNames}" th:text="${columnName}"><Oni></Oni></option>
         </select>
-
-        <select name="city" size="1">
-            <option  th:each="columnName : ${columnNames}" th:text="${columnName}">Onions</option>
-        </select>
-
+        <h3>Numer budynku</h3>
+        <p>Jeli numer budynku zawarty w ulicy, prosze wybrac te sama kolumne</p>
         <select name="houseNumber" size="1">
-            <option  th:each="columnName : ${columnNames}" th:text="${columnName}">Onions</option>
+            <option  th:each="columnName : ${columnNames}" th:text="${columnName}"></option>
         </select>
 
         <input class="form-control"
@@ -31,7 +25,7 @@
                th:value="${fileName}" id="clientName" name="filename"   style="display: none" />
 
 
-        <input type="submit" value="Upload File" name="submit"/>
+        <input type="submit" value="Rozpocznij geodekodowanie" name="submit"/>
     </form>
 </body>
 

@@ -17,11 +17,10 @@ class FileController {
     @PostMapping("/csv")
     fun downloadResult(@RequestParam("filename") fileName: String,
                        @RequestParam("street") street: String,
-                       @RequestParam("city") city: String,
                        @RequestParam("houseNumber") houseNumber: String, model: Model): String {
 
         val startTime = Date()
-        val addressHeaders: Map<String, String> = hashMapOf("city" to city, "street" to street, "number" to houseNumber)
+        val addressHeaders: Map<String, String> = hashMapOf("street" to street, "number" to houseNumber)
         val csvProcessor = CsvProcessor(fileName);
         val outputFileName = csvProcessor.getOutputFile(addressHeaders);
         val unprocessedFileName = csvProcessor.getUnprocessedAdressesFilename();

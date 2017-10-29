@@ -45,11 +45,10 @@ class CSVController(val fileNameInput: String) {
                 if (!isFirstLine) {
                     val columns = it.split(';')
 
-                    val indexCity = headerIndexes["city"]
                     val indexStreet = headerIndexes["street"]
                     val indexNumber = headerIndexes["number"]
 
-                    result.add(AddressData(columns[indexCity!!], columns[indexStreet!!], columns[indexNumber!!], it, -1f, -1f))
+                    result.add(AddressData("Krakow", columns[indexStreet!!], columns[indexNumber!!], it, -1f, -1f))
                 } else {
                     isFirstLine = false
                 }
