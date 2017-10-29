@@ -7,7 +7,7 @@ import com.teamnull.taskcity.csvclient.AddressData
 
 class CSVController(val fileNameInput: String) {
 
-    val isFirstStart = false
+    val isFirstStart = true
 
     private var addressData: List<AddressData>? = null
     private var header: String? = null

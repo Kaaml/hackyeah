@@ -24,9 +24,8 @@ fun ff() = ReportsController()
 
 
 fun main(args: Array<String>) {
-    if (isFirstStart){
         val k :DBController = DBController()
         k.InitTable()
-    }
+
     SpringApplication.run(TaskCityApplication::class.java, *args)
 }
