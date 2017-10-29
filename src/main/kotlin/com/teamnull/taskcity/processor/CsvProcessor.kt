@@ -6,12 +6,15 @@ import com.teamnull.taskcity.geocodeclient.GeoCodeClient
 import java.util.concurrent.CopyOnWriteArrayList
 import com.teamnull.taskcity.util.LatToxy
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicInteger
 
 class CsvProcessor(fileInput: String) {
     private val geoCodeClient = GeoCodeClient()
     private val csvController: CSVController = CSVController(fileInput);
     private val executorService = Executors.newFixedThreadPool(10)
     private val unprocessedAddressData: MutableList<AddressData> = CopyOnWriteArrayList()
+    private var processedAddresses: AtomicInteger = AtomicInteger()
+    private var unprocessedAddresses: AtomicInteger = AtomicInteger()
 
     fun getOutputFile(csvHeaders: Map<String, String>): String {
         csvController.LoadAddress(csvHeaders)
@@ -20,6 +23,14 @@ class CsvProcessor(fileInput: String) {
 
     fun getUnprocessedAdressesFilename() : String {
         return csvController.saveUnprocessedAddresses(unprocessedAddressData);
+    }
+
+    fun getProcessedNumber() : Int {
+        return processedAddresses.get();
+    }
+
+    fun getUnprocessedNumber() : Int {
+        return unprocessedAddresses.get();
     }
 
     private fun processAddresses(addresses: List<AddressData>): String {
@@ -31,8 +42,10 @@ class CsvProcessor(fileInput: String) {
                             val tmp = LatToxy.convert(coordinates[0].x.toDouble(), coordinates[0].y.toDouble())
                             address.x = tmp.x.toFloat()
                             address.y = tmp.y.toFloat()
+                            processedAddresses.getAndIncrement()
                         } else {
                             unprocessedAddressData.add(address);
+                            unprocessedAddresses.getAndIncrement();
 
                         }
                     }
