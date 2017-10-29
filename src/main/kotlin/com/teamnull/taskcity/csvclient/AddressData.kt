@@ -5,6 +5,7 @@ package com.teamnull.taskcity.csvclient
 class AddressData (val city:String, val street:String, val number:String, val rowData:String, var x:Float, var y:Float ){
 
     fun GetAddress (): String{
+        if( street == number ) return "${city} ${street}"
         return "${city} ${street} ${number}"
     }
     fun GetRow ():String{

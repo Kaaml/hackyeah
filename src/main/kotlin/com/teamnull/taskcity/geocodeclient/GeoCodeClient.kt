@@ -21,8 +21,6 @@ class GeoCodeClient {
                     "?SingleLine=" + URLEncoder.encode(addressLine,"UTF-8") +
                     "&forStorage=false" +
                     "&f=pjson")
-
-//http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=bakery+in+berlin+wedding&format=json&limit=1
         }while (errorFlad)
         println(getObject!!.statusCode)
         if(getObject!!.statusCode == 503){
