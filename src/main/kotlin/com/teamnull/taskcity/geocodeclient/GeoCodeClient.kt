@@ -42,7 +42,7 @@ class GeoCodeClient {
             val x: String = location.get("x").toString();
             val y: String = location.get("y").toString();
 
-            val score = location.get("score").toString();
+            val score = coords.get("score").toString();
             if( score.toFloat() > 75.0 ){
                 candidates.add(Coordinate(x.toFloat(), y.toFloat()));
             }
