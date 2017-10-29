@@ -2,6 +2,7 @@ buildscript {
 	ext {
 		kotlinVersion = '1.1.51'
 		springBootVersion = '1.5.8.RELEASE'
+		anko_version = '0.10.2'
 	}
 	repositories {
 		jcenter()
@@ -43,5 +44,7 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '1.5.8.RELEASE'
+	compile "org.jetbrains.anko:anko-sqlite:$anko_version"
+	compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
 
 }

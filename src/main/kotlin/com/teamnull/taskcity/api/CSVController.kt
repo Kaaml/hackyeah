@@ -7,6 +7,8 @@ import com.teamnull.taskcity.csvclient.AddressData
 
 class CSVController(val fileNameInput: String) {
 
+    val isFirstStart = false
+
     private var addressData: List<AddressData>? = null
     private var header: String? = null
 
@@ -48,7 +50,14 @@ class CSVController(val fileNameInput: String) {
                     val indexStreet = headerIndexes["street"]
                     val indexNumber = headerIndexes["number"]
 
-                    result.add(AddressData("Krakow", columns[indexStreet!!], columns[indexNumber!!], it, -1f, -1f))
+                    if(isFirstStart){
+                        val x:Int =10
+                        val y:Int =11
+                        result.add(AddressData("Krakow", columns[indexStreet!!], columns[indexNumber!!], it, columns[x].replace(',','.').toFloat(), columns[y].replace(',','.').toFloat()))
+
+                    }else{
+                        result.add(AddressData("Krakow", columns[indexStreet!!], columns[indexNumber!!], it, -1f,-1f))
+                    }
                 } else {
                     isFirstLine = false
                 }
